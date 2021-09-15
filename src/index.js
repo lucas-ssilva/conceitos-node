@@ -80,7 +80,7 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   user.todos[index].title = title; 
   user.todos[index].deadline = deadline; 
 
-  return response.status(200).send();
+  return response.status(200).json(user.todos[index]);
 
 });
 
@@ -96,7 +96,7 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
 
   user.todos[index].done = true;
 
-  return response.status(201).json(user);
+  return response.status(201).json(user.todos[index]);
 
 });
 
@@ -110,7 +110,7 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
     return response.status(404).json({error: "todo dont exist"})
   };
 
-  user.todos.splice(index, 1);
+  user.todos = [];
 
   return response.status(204).send();
 });
